@@ -1,0 +1,14 @@
+services:
+    db:
+        image: postgres:16.3-alpine3.20
+        container_name: memes-db
+        restart: unless-stopped
+        env_file:
+            - .env
+        ports:
+            - 1000:5432
+        volumes:
+            - memes_db:/var/lib/postgresql/data
+
+volumes:
+    memes_db:
