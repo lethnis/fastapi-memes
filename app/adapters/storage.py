@@ -4,7 +4,7 @@ from aiobotocore.session import get_session
 from app.config import settings
 
 
-class S3Client:
+class S3Storage:
     def __init__(
         self,
         access_key,
@@ -45,6 +45,15 @@ class S3Client:
         async with self.get_client() as client:
             await client.delete_object(Bucket=self.bucket_name, Key=filename)
 
+    async def paginate(self):
+        all_names = []
+        async with self.get_client() as client:
+            paginator = client.get_paginator("list_objects")
+            async for result in paginator.paginate(Bucket=self.bucket_name):
+                for c in result.get("Contents", []):
+                    all_names.append(c)
+            return all_names
+
     async def list_objects(self):
         # STRANGE THING ONLY FOR THIS FUNCTION
         # REMEMBER FOREVER !!! https://memes.s3.cloud.ru -> https://s3.cloud.ru
@@ -55,7 +64,7 @@ class S3Client:
             return result
 
 
-s3_client = S3Client(
+s3_storage = S3Storage(
     access_key=settings.ACCESS_KEY,
     secret_key=settings.SECRET_KEY,
     endpoint_url=settings.ENDPOINT_URL,
