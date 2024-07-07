@@ -8,7 +8,7 @@ from app.domain.value_objects import MIMETypes
 class Meme:
 
     filename: str
-    description: str = field(default=None)
+    description: str | None = field(default=None)
     content_type: type[MIMETypes] = field(init=False)
 
     def __post_init__(self):
