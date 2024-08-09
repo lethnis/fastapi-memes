@@ -14,10 +14,10 @@ class Base(DeclarativeBase):
     pass
 
 
-class Memes(Base):
+class MemesTable(Base):
     __tablename__ = "memes"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[str] = mapped_column(primary_key=True)
     filename: Mapped[str]
     description: Mapped[str | None]
     content_type: Mapped[str]

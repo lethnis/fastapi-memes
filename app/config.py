@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     ENDPOINT_URL: str
     BUCKET_NAME: str
+    MINIO_ROOT_USER: str
+    MINIO_ROOT_PASSWORD: str
 
     model_config = SettingsConfigDict(env_file=".env")
 

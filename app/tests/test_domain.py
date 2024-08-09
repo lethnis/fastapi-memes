@@ -6,8 +6,19 @@ from app.domain.value_objects import MIMETypes
 
 
 def test_can_create_meme():
-    meme = Meme("image.jpg")
-    assert meme, "Should be able to create meme"
+    meme = Meme(filename="image.jpg")
+    assert meme, "Should be able to create meme."
+    assert meme.filename == "image.jpg", "File name do not match."
+
+
+def test_can_create_meme_without_description():
+    meme = Meme(filename="image.jpg")
+    assert meme.description is None, "Should be able to create meme without description."
+
+
+def test_can_create_meme_with_description():
+    meme = Meme(filename="image.jpg", description="My image")
+    assert meme.description == "My image", "Should be able to create meme with description."
 
 
 def test_supports_different_formats():
@@ -54,10 +65,16 @@ def test_exception_on_unsupported_format():
 def test_exception_on_file_without_format():
     with pytest.raises(NotSupportedFileExtensionException):
         Meme("qwerty")
-        pytest.fail(f"Should not support formats other than {list(MIMETypes.supported_types())}")
+        pytest.fail(
+            "Can't save file without extension. "
+            f"Should not support formats other than {list(MIMETypes.supported_types())}."
+        )
 
 
 def test_exception_file_named_as_format():
     with pytest.raises(NotSupportedFileExtensionException):
         Meme("jpg")
-        pytest.fail(f"Should not support formats other than {list(MIMETypes.supported_types())}")
+        pytest.fail(
+            "Can't save file named as extension. File should be named as followed: 'name.extension'"
+            f"Should not support formats other than {list(MIMETypes.supported_types())}"
+        )

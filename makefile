@@ -1,7 +1,7 @@
 DC = docker compose
 DEV = docker-compose-dev.yml
 
-up-dev:
+dev-up:
 	${DC} -f ${DEV} up -d
-down-dev:
+dev-down:
 	${DC} -f ${DEV} down

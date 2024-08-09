@@ -1,12 +1,13 @@
 {
     "Id": "Policy1718865792727",
     "Version": "2012-10-17",
+    "Name": "readonly",
     "Statement": [
         {
             "Sid": "Stmt1718865785831",
             "Action": ["s3:GetObject"],
             "Effect": "Allow",
-            "Resource": "arn:aws:s3:::memes-storage/*",
+            "Resource": "arn:aws:s3:::memes/*",
             "Principal": "*"
         }
     ]
